@@ -1,3 +1,17 @@
+/* App.css */
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  background-color: #ffffff; /* Set your desired background color here */
+  color: #000000; /* Set your desired text color here */
+}
+
 .App {
   text-align: center;
 }
@@ -7,14 +21,8 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
+  background-color: #ffffff; /* Set your desired header background color here */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -24,15 +32,11 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.form-container {
+  margin-top: 20px; /* Add some margin between the heading and the form */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Set label color for TextField components */
+.MuiInputLabel-root {
+  color: #2196f3; /* Set your desired label color here (blue in this case) */
 }

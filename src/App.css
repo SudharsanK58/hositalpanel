@@ -40,3 +40,9 @@ body {
 .MuiInputLabel-root {
   color: #2196f3; /* Set your desired label color here (blue in this case) */
 }
+.centered-container {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 20px;
+}
+

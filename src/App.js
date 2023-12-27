@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
-import Dashboard from './Dashboard';
+import PatientDetails from './patientDetails';
 import './App.css';
 
 function App() {
@@ -73,7 +73,7 @@ function App() {
   };
 // Render AnotherPage component when logged in
   if (loggedIn) {
-    return <Dashboard attendantName={attendantName} password={password}/>;
+    return <PatientDetails attendantName={attendantName} password={password}/>;
   }
 
   return (

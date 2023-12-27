@@ -22,14 +22,12 @@ body {
 }
 
 .App-header {
-  background-color: #ffffff; /* Set your desired header background color here */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .form-container {
@@ -44,6 +42,8 @@ body {
   max-width: 450px;
   margin: 0 auto;
   padding: 20px;
+  min-height: 100vh; /* Ensure this is set to 100vh */
+  background-color: inherit;
 }
 .centered-container2 {
   max-width: 1050px;

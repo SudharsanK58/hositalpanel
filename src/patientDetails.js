@@ -4,9 +4,9 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
+import PatientHistory from './PatientHistory';
 
 function PatientDetails(props) {
-  const { attendantName, password } = props;
 
   const labelStyle = {
     color: 'blue',
@@ -26,6 +26,8 @@ function PatientDetails(props) {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [patientId, setPatientId] = useState(null);
+
 
   const handleContinue = () => {
     // Validate if any field is empty
@@ -63,6 +65,7 @@ function PatientDetails(props) {
       .then(data => {
         // Log the patientId in the console
         console.log('PatientId:', data.PatientId);
+        setPatientId(data.PatientId);
       })
       .catch(error => console.error('Error:', error))
       .finally(() => {
@@ -70,6 +73,12 @@ function PatientDetails(props) {
         setLoading(false);
       });
   };
+
+   // Render PatientHistory if patientId is available
+   if (patientId) {
+    return <PatientHistory patientId={patientId} patientName={name} />;
+  }
+
 
   return (
     <div className="centered-container">

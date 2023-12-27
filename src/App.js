@@ -73,7 +73,7 @@ function App() {
   };
 // Render AnotherPage component when logged in
   if (loggedIn) {
-    return <PatientDetails attendantName={attendantName} password={password}/>;
+    return <PatientDetails/>;
   }
 
   return (

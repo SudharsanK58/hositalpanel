@@ -45,4 +45,9 @@ body {
   margin: 0 auto;
   padding: 20px;
 }
+.centered-container2 {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 20px;
+}
 

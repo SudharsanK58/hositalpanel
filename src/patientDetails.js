@@ -5,12 +5,30 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import PatientHistory from './PatientHistory';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel'; // Add this import
+import FormControl from '@mui/material/FormControl'; // Add this import
+
 
 function PatientDetails(props) {
 
   const labelStyle = {
     color: 'blue',
   };
+  const labelStyle2 = {
+    color: 'grey',
+  };
+  const tamilNaduCities = [
+    'Chennai',
+    'Coimbatore',
+    'Madurai',
+    'Tiruchirappalli',
+    'Salem',
+    'Tirunelveli',
+    // Add more cities as needed
+  ];
+
 
   const headingStyle = {
     color: 'blue', // Change this color to your desired blue color
@@ -105,24 +123,40 @@ function PatientDetails(props) {
             value={age}
             onChange={(e) => setAge(e.target.value)}
           />
-          <TextField
-            id="gender"
-            label="Gender"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-          />
-          <TextField
-            id="city"
-            label="City"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
+          <FormControl fullWidth variant="outlined" margin="normal">
+            <InputLabel id="gender-label" style={labelStyle2}>
+              Gender
+            </InputLabel>
+            <Select
+              labelId="gender-label"
+              id="gender"
+              label="Gender"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+            >
+              <MenuItem value="Male">Male</MenuItem>
+              <MenuItem value="Female">Female</MenuItem>
+              <MenuItem value="Others">Others</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth variant="outlined" margin="normal">
+            <InputLabel id="city-label" style={labelStyle2}>
+              City
+            </InputLabel>
+            <Select
+              labelId="city-label"
+              id="city"
+              label="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            >
+              {tamilNaduCities.map((cityName) => (
+                <MenuItem key={cityName} value={cityName}>
+                  {cityName}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <TextField
             id="height"
             label="Height (cm)"

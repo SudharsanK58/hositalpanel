@@ -34,18 +34,22 @@ function App() {
       setError('Both fields must be filled out.');
       return;
     }
-
+  
     try {
       setLoading(true);
       setError('');
-
+  
       // Your login API call here
-
+  
       // Simulating a delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
+  
       // Simulating a successful login
-
+  
+      // Print the attendantName and password to the console
+      console.log('Attendant:', attendantName);
+      console.log('Password:', password);
+  
     } catch (error) {
       console.error('Error:', error);
       setError('An unexpected error occurred.');
@@ -53,6 +57,7 @@ function App() {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="App">

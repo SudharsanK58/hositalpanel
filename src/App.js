@@ -85,12 +85,16 @@ function App() {
         />
         {focusedInput && (
           <Keyboard
-            onChange={(input) => handleInputChange(focusedInput, input)}
-            inputName={focusedInput}
-            layout={{
-              default: ['1 2 3 4 5 6 7 8 9 0 {bksp}', 'q w e r t y u i o p', 'a s d f g h j k l', 'z x c v b n m'],
-            }}
-          />
+          onChange={(input, e) => {
+            e.preventDefault(); // Prevent default behavior
+            e.stopPropagation(); // Stop event propagation
+            handleInputChange(focusedInput, input);
+          }}
+          inputName={focusedInput}
+          layout={{
+            default: ['1 2 3 4 5 6 7 8 9 0 {bksp}', 'q w e r t y u i o p', 'a s d f g h j k l', 'z x c v b n m'],
+          }}
+        />        
         )}
         {error && <Typography variant="body2" color="error">{error}</Typography>}
         <Button

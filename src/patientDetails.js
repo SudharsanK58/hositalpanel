@@ -189,7 +189,22 @@ function PatientDetails(props) {
             onFocus={() => handleInputFocus('name')}
             onBlur={handleInputBlur}
             onChange={(e) => setName(e.target.value)}
-          />
+          />    
+            {focusedInput === 'name' && (
+              <div style={{ position: 'relative', marginTop: '8px' }}>
+                <Keyboard
+                  onChange={(input, e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleInputChange('name', input);
+                  }}
+                  inputName="name"
+                  layout={{
+                    default: ['q w e r t y u i o p', 'a s d f g h j k l', 'z x c v b n m','{bksp}'],
+                  }}
+                />
+              </div>
+            )}
           <TextField
             id="age"
             label="Age"
@@ -201,6 +216,21 @@ function PatientDetails(props) {
             onBlur={handleInputBlur}
             onChange={(e) => setAge(e.target.value)}
           />
+        {focusedInput === 'age' && (
+          <div style={{ position: 'relative', marginTop: '8px' }}>
+            <Keyboard
+              onChange={(input, e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleInputChange('age', input);
+              }}
+              inputName="age"
+              layout={{
+                default: ['1 2 3', '4 5 6', '7 8 9', '0 {bksp}'],
+              }}
+            />
+          </div>
+        )}
           <FormControl fullWidth variant="outlined" margin="normal">
             <InputLabel id="gender-label" style={labelStyle2}>
               Gender
@@ -250,6 +280,21 @@ function PatientDetails(props) {
             onBlur={handleInputBlur}
             onChange={(e) => setHeight(e.target.value)}
           />
+          {focusedInput === 'height' && (
+            <div style={{ position: 'relative', marginTop: '8px' }}>
+              <Keyboard
+                onChange={(input, e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleInputChange('height', input);
+                }}
+                inputName="height"
+                layout={{
+                  default: ['1 2 3', '4 5 6', '7 8 9', '0 {bksp}'],
+                }}
+              />
+            </div>
+          )}
           <TextField
             id="weight"
             label="Weight (kg)"
@@ -261,6 +306,21 @@ function PatientDetails(props) {
             onBlur={handleInputBlur}
             onChange={(e) => setWeight(e.target.value)}
           />
+          {focusedInput === 'weight' && (
+            <div style={{ position: 'relative', marginTop: '8px' }}>
+              <Keyboard
+                onChange={(input, e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleInputChange('weight', input);
+                }}
+                inputName="weight"
+                layout={{
+                  default: ['1 2 3', '4 5 6', '7 8 9', '0 {bksp}'],
+                }}
+              />
+            </div>
+          )}
           <TextField
             id="phoneNumber"
             label="Phone Number"
@@ -272,17 +332,17 @@ function PatientDetails(props) {
             onBlur={handleInputBlur}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
-          {focusedInput && (
-            <div style={keyboardStyle}>
+          {focusedInput === 'phoneNumber' && (
+            <div style={{ position: 'relative', marginTop: '8px' }}>
               <Keyboard
                 onChange={(input, e) => {
-                  e.preventDefault(); // Prevent default behavior
-                  e.stopPropagation(); // Stop event propagation
-                  handleInputChange(focusedInput, input);
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleInputChange('phoneNumber', input);
                 }}
-                inputName={focusedInput}
+                inputName="phoneNumber"
                 layout={{
-                  default: ['1 2 3 4 5 6 7 8 9 0 {bksp}', 'q w e r t y u i o p', 'a s d f g h j k l', 'z x c v b n m'],
+                  default: ['1 2 3', '4 5 6', '7 8 9', '+ 0 {bksp}'],
                 }}
               />
             </div>

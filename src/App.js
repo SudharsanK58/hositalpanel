@@ -131,6 +131,7 @@ function App() {
             onChange={(e) => setPassword(e.target.value)}
           />
           {focusedInput && (
+            <div style={{ position: 'relative', marginTop: '8px' }}>
             <Keyboard
               onChange={(input, e) => {
                 e.preventDefault(); // Prevent default behavior
@@ -142,6 +143,7 @@ function App() {
                 default: ['1 2 3 4 5 6 7 8 9 0 {bksp}', 'q w e r t y u i o p', 'a s d f g h j k l', 'z x c v b n m'],
               }}
             />
+            </div>
           )}
           {error && <Typography variant="body2" color="error">{error}</Typography>}
           <Button variant="contained" fullWidth style={{ marginTop: '16px' }} onClick={handleLogin} disabled={loading}>

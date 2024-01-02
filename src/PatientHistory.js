@@ -41,7 +41,7 @@ function PatientHistory(props) {
         breathing_difficulty: breathingDifficultyHistory,
       };
 
-      const response = await fetch('http://52.15.81.194:8001/save_disease_history', {
+      const response = await fetch('http://3.144.9.52:8001/save_disease_history', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

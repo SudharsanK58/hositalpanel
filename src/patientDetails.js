@@ -133,7 +133,7 @@ function PatientDetails(props) {
     setLoading(true);
 
     // API endpoint
-    const apiUrl = 'http://52.15.81.194:8001/save_patient_details';
+    const apiUrl = 'http://3.144.9.52:8001/save_patient_details';
 
     // Payload
     const payload = {

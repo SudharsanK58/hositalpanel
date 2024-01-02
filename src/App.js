@@ -61,7 +61,7 @@ function App() {
       };
 
       // Make POST request to the login API
-      const response = await fetch('http://52.15.81.194:8001/login', {
+      const response = await fetch('http://3.144.9.52:8001/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

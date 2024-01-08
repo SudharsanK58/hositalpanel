@@ -6,6 +6,11 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import HeartResult from './HeartResult';
 import PatientDetails from './patientDetails';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material';
+
 
 function PatientHistory(props) {
   const { patientId, patientName } = props;
@@ -26,6 +31,14 @@ function PatientHistory(props) {
   const [breathingDifficultyHistory, setBreathingDifficultyHistory] = useState(50);
   const [loading, setLoading] = useState(false);
   const [heartHealth, setHeartHealth] = useState(null);
+  const [obstructiveAirwayDisease, setObstructiveAirwayDisease] = useState(0);
+  const [smokingTobaccoConsumption, setSmokingTobaccoConsumption] = useState(0);
+  const [historyOfHeartAttack, setHistoryOfHeartAttack] = useState(0);
+  const [priorSymptomaticHF, setPriorSymptomaticHF] = useState(0);
+  const [hypertension, setHypertension] = useState(0);
+  const [diabetesMellitus, setDiabetesMellitus] = useState(0);
+  const [creatinineValue, setCreatinineValue] = useState(100); // Initial value, you can set it to any value you prefer
+
 
   const handleCalculate = async () => {
     try {
@@ -71,7 +84,7 @@ function PatientHistory(props) {
   };
 
   const sliderStyles = {
-    width: '150%', // Adjust the width as needed
+    width: '100%', // Adjust the width as needed
   };
   if (heartHealth) {
     // If heartHealth is available, render the HeartResult component
@@ -85,35 +98,102 @@ function PatientHistory(props) {
             Patient History
         </Typography>
         <div className="form-container">
-          <div style={sliderContainerStyle}>
-            <Typography id="diabetes-slider-label" style={{ color: 'black' }}>
-              History of Diabetes
-            </Typography>
-            <Slider
-              id="diabetesSlider"
-              defaultValue={70}
-              aria-labelledby="diabetes-slider-label"
-              valueLabelDisplay="auto"
-              value={diabetesHistory}
-              onChange={(event, value) => setDiabetesHistory(value)}
-              sx={sliderStyles}
-            />
-          </div>
-
-          <div style={sliderContainerStyle}>
-            <Typography id="heart-attack-slider-label" style={{ color: 'black' }}>
-              History of Heart Attack
-            </Typography>
-            <Slider
-              id="heartAttackSlider"
-              defaultValue={50}
-              aria-labelledby="heart-attack-slider-label"
-              valueLabelDisplay="auto"
-              value={heartAttackHistory}
-              onChange={(event, value) => setHeartAttackHistory(value)}
-              sx={sliderStyles}
-            />
-          </div>
+        <TableContainer component={Paper} style={sliderContainerStyle} sx={{ borderCollapse: 'collapse', border: 'none', boxShadow: 'none' }}>
+            <Table aria-label="patient-history-table">
+              <TableBody>
+                <TableRow>
+                  <TableCell sx={{ border: 'none' }}><Typography id="paralysis-slider-label" style={{ color: 'black' }}>Obstructive Airway Disease</Typography></TableCell>
+                  <TableCell align="right" sx={{ border: 'none' }}>
+                    <RadioGroup
+                      row
+                      aria-labelledby="obstructive-airway-disease-label"
+                      name="obstructive-airway-disease-group"
+                      value={obstructiveAirwayDisease.toString()}
+                      onChange={(event) => setObstructiveAirwayDisease(parseInt(event.target.value, 10))}
+                    >
+                      <FormControlLabel value="1" control={<Radio />} label="Yes" />
+                      <FormControlLabel value="0" control={<Radio />} label="No" />
+                    </RadioGroup>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ border: 'none' }}><Typography id="paralysis-slider-label" style={{ color: 'black' }}>Smoking Tobacco Consumption</Typography></TableCell>
+                  <TableCell align="right" sx={{ border: 'none' }}>
+                    <RadioGroup
+                      row
+                      aria-labelledby="smoking-tobacco-consumption-label"
+                      name="smoking-tobacco-consumption-group"
+                      value={smokingTobaccoConsumption.toString()}
+                      onChange={(event) => setSmokingTobaccoConsumption(parseInt(event.target.value, 10))}
+                    >
+                      <FormControlLabel value="1" control={<Radio />} label="Yes" />
+                      <FormControlLabel value="0" control={<Radio />} label="No" />
+                    </RadioGroup>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ border: 'none' }}><Typography id="paralysis-slider-label" style={{ color: 'black' }}>History of Heart Attack</Typography></TableCell>
+                  <TableCell align="right" sx={{ border: 'none' }}>
+                    <RadioGroup
+                      row
+                      aria-labelledby="history-of-heart-attack-label"
+                      name="history-of-heart-attack-group"
+                      value={historyOfHeartAttack.toString()}
+                      onChange={(event) => setHistoryOfHeartAttack(parseInt(event.target.value, 10))}
+                    >
+                      <FormControlLabel value="1" control={<Radio />} label="Yes" />
+                      <FormControlLabel value="0" control={<Radio />} label="No" />
+                    </RadioGroup>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ border: 'none' }}><Typography id="paralysis-slider-label" style={{ color: 'black' }}>Prior Symptomatic Heart Failure</Typography></TableCell>
+                  <TableCell align="right" sx={{ border: 'none' }}>
+                    <RadioGroup
+                      row
+                      aria-labelledby="prior-symptomatic-hf-label"
+                      name="prior-symptomatic-hf-group"
+                      value={priorSymptomaticHF.toString()}
+                      onChange={(event) => setPriorSymptomaticHF(parseInt(event.target.value, 10))}
+                    >
+                      <FormControlLabel value="1" control={<Radio />} label="Yes" />
+                      <FormControlLabel value="0" control={<Radio />} label="No" />
+                    </RadioGroup>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ border: 'none' }}><Typography id="paralysis-slider-label" style={{ color: 'black' }}>Hypertension (HTN)</Typography></TableCell>
+                  <TableCell align="right" sx={{ border: 'none' }}>
+                    <RadioGroup
+                      row
+                      aria-labelledby="hypertension-label"
+                      name="hypertension-group"
+                      value={hypertension.toString()}
+                      onChange={(event) => setHypertension(parseInt(event.target.value, 10))}
+                    >
+                      <FormControlLabel value="1" control={<Radio />} label="Yes" />
+                      <FormControlLabel value="0" control={<Radio />} label="No" />
+                    </RadioGroup>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ border: 'none' }}><Typography id="paralysis-slider-label" style={{ color: 'black' }}>Diabetes Mellitus (DM)</Typography></TableCell>
+                  <TableCell align="right" sx={{ border: 'none' }}>
+                    <RadioGroup
+                      row
+                      aria-labelledby="diabetes-mellitus-label"
+                      name="diabetes-mellitus-group"
+                      value={diabetesMellitus.toString()}
+                      onChange={(event) => setDiabetesMellitus(parseInt(event.target.value, 10))}
+                    >
+                      <FormControlLabel value="1" control={<Radio />} label="Yes" />
+                      <FormControlLabel value="0" control={<Radio />} label="No" />
+                    </RadioGroup>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
 
           <div style={sliderContainerStyle}>
             <Typography id="paralysis-slider-label" style={{ color: 'black' }}>

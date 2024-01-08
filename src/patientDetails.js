@@ -169,7 +169,7 @@ function PatientDetails(props) {
 
   // Render PatientHistory if patientId is available
   if (patientId) {
-    return <PatientHistory patientId={patientId} patientName={name} />;
+    return <PatientHistory patientId={patientId} patientNamePass ={name} patientAge ={age} patientWeight = {weight} patientHeight = {height} patientGender = {gender} />;
   }
 
   return (

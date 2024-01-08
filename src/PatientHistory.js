@@ -13,7 +13,7 @@ import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper
 
 
 function PatientHistory(props) {
-  const { patientId, patientName } = props;
+  const { patientId, patientNamePass, patientAge, patientWeight, patientHeight, patientGender} = props;
  
   const labelStyle = {
     color: 'blue',
@@ -22,13 +22,10 @@ function PatientHistory(props) {
   const headingStyle = {
     color: 'blue', // Change this color to your desired blue color
   };
-
-  const [diabetesHistory, setDiabetesHistory] = useState(70);
-  const [heartAttackHistory, setHeartAttackHistory] = useState(50);
-  const [paralysisHistory, setParalysisHistory] = useState(50);
-  const [gangreneHistory, setGangreneHistory] = useState(50);
-  const [bloodPressureHistory, setBloodPressureHistory] = useState(50);
-  const [breathingDifficultyHistory, setBreathingDifficultyHistory] = useState(50);
+  const [withLab, setWithLab] = useState(null);
+  const [withoutLab, setWithoutLab] = useState(null);
+  const [BMI, setBMI] = useState(null);
+  const [patientName, setPatientName] = useState(null);
   const [loading, setLoading] = useState(false);
   const [heartHealth, setHeartHealth] = useState(null);
   const [obstructiveAirwayDisease, setObstructiveAirwayDisease] = useState(0);
@@ -49,29 +46,48 @@ function PatientHistory(props) {
   const handleCalculate = async () => {
     try {
       setLoading(true);
-
+  
       const requestBody = {
-        patient_id: patientId,
-        diabetes: diabetesHistory,
-        heart_attack: heartAttackHistory,
-        paralysis: paralysisHistory,
-        gangrene: gangreneHistory,
-        blood_pressure: bloodPressureHistory,
-        breathing_difficulty: breathingDifficultyHistory,
+        "PatientId": patientId, // Assuming patientId is already defined in your component
+        "Sex": patientGender === "Male" ? 1 : 0,
+        "obstructiveairwaydisease": obstructiveAirwayDisease,
+        "Smokingtobaccoconsumption": smokingTobaccoConsumption,
+        "historyofMI": historyOfHeartAttack,
+        "PriorsymptomaticHF": priorSymptomaticHF,
+        "Age": parseInt(patientAge, 10),
+        "creatinine": creatinineValue,
+        "Heartrate": heartRateValue,
+        "weight": parseInt(patientWeight, 10),
+        "height_cm": parseInt(patientHeight, 10), // Convert height to integer
+        "SBP": sbpValue,
+        "DBP": dbpValue,
+        "Bloodglucose": bloodGlucoseValue,
+        "Hb": hemoglobinValue,
+        "BNP": bnpValue,
+        "HTN": hypertension,
+        "DM": diabetesMellitus,
       };
-
-      const response = await fetch('http://3.144.9.52:8001/save_disease_history', {
+  
+      const response = await fetch('http://3.144.9.52:8001/save_disease_history2', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestBody),
       });
-
+  
       if (response.ok) {
         const data = await response.json();
-        setHeartHealth(data.HeartHealth);
-        console.log('HeartHealth:', data.HeartHealth);
+        console.log('API Response:', data);
+  
+        // Assuming "heartHealth" is a boolean state variable
+        setHeartHealth(true);
+  
+        // Pass relevant data to state variables if needed
+        setPatientName(data.PatientName);
+        setWithLab(data.withlab);
+        setWithoutLab(data.withoutlab);
+        setBMI(data.BMI);
       } else {
         console.error('Error:', response.statusText);
       }
@@ -81,6 +97,7 @@ function PatientHistory(props) {
       setLoading(false);
     }
   };
+  
 
   const sliderContainerStyle = {
     display: 'flex',
@@ -94,8 +111,17 @@ function PatientHistory(props) {
   };
   if (heartHealth) {
     // If heartHealth is available, render the HeartResult component
-    return <HeartResult patientId={patientId} heartHealth={heartHealth}/>;
+    return (
+      <HeartResult
+        patientId={patientId}
+        patientName={patientName}
+        withLab={withLab}
+        withoutLab={withoutLab}
+        bmi={BMI}
+      />
+    );
   }
+  
 
   return (
     <div className="centered-container">

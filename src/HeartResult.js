@@ -2,6 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
 import PatientDetails from './patientDetails';
 
 function HeartResult(props) {
@@ -22,7 +29,7 @@ function HeartResult(props) {
   const headingStyle = {
     fontSize: '3em',
     fontWeight: 'bold',
-    color: textColor,
+    color: 'blue',
     textAlign: 'center',
   };
 
@@ -54,54 +61,72 @@ function HeartResult(props) {
     return <PatientDetails />;
   }
 
-  // Updated return statement to include patient details
-  return (
-    <div className="centered-container" style={{ backgroundColor }}>
-      <header className="App-header">
-        <Typography variant="h4" gutterBottom style={headingStyle}>
-          Heart Health
-        </Typography>
-        <div className="form-container">
-          <Typography variant="h6" style={heartHealthStyle}>
-            {heartHealth}
-          </Typography>
+// Updated return statement with the centering
+return (
+  <div className="centered-container" style={{ backgroundColor, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', overflow: 'hidden' }}>
+    <header className="App-header">
+      <Typography variant="h4" gutterBottom style={headingStyle}>
+        Heart Health
+      </Typography>
+      <div className="form-container" style={{ textAlign: 'center', width: '100%' }}>
 
-          {/* Include patient details */}
-          <Typography variant="body1">
-            Patient ID: {patientId}
-          </Typography>
-          <Typography variant="body1">
-            Patient Name: {patientName}
-          </Typography>
-          <Typography variant="body1">
-            With Lab: {withLab}
-          </Typography>
-          <Typography variant="body1">
-            Without Lab: {withoutLab}
-          </Typography>
-          <Typography variant="body1">
-            BMI: {bmi}
-          </Typography>
+        {/* Include patient details in a vertical table */}
+        <TableContainer
+          component={Paper}
+          sx={{
+            margin: 'auto',
+            width: 'fit-content',
+            boxShadow: 'none',
+            border: '1px solid black',
+            '& td, & th': {
+              fontSize: '0.9em',
+              fontWeight: 'bold',
+            },
+          }}
+>
+          <Table aria-label="patient details">
+            <TableBody>
+              <TableRow>
+                <TableCell variant="head">Name :</TableCell>
+                <TableCell align="left">{patientName}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell variant="head">WithLab :</TableCell>
+                <TableCell align="left">{withLab.toFixed(4)}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell variant="head">WithoutLab :</TableCell>
+                <TableCell align="left">{withoutLab.toFixed(4)}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell variant="head">BMI :</TableCell>
+                <TableCell align="left">{bmi.toFixed(4)}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
 
-          <Button
-            variant="contained"
-            style={{ marginTop: '16px', marginRight: '30px' }}
-            onClick={handleBackButtonClick}
-          >
-            Back
-          </Button>
+        <Button
+          variant="contained"
+          style={{ marginTop: '16px', marginRight: '30px' }}
+          onClick={handleBackButtonClick}
+        >
+          Back
+        </Button>
 
-          <Button
-            variant="contained"
-            style={{ marginTop: '16px' }}
-            onClick={handleLogout}
-          >
-            Log out
-          </Button>
-        </div>
-      </header>
-    </div>
-  );
+        <Button
+          variant="contained"
+          style={{ marginTop: '16px' }}
+          onClick={handleLogout}
+        >
+          Log out
+        </Button>
+      </div>
+    </header>
+  </div>
+);
+
+
 }
 
 export default HeartResult;

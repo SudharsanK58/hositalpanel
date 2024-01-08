@@ -9,7 +9,7 @@ import PatientDetails from './patientDetails';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <PatientDetails />
+    <App />
   </React.StrictMode>
 );
 

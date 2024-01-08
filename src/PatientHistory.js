@@ -38,6 +38,12 @@ function PatientHistory(props) {
   const [hypertension, setHypertension] = useState(0);
   const [diabetesMellitus, setDiabetesMellitus] = useState(0);
   const [creatinineValue, setCreatinineValue] = useState(100); // Initial value, you can set it to any value you prefer
+  const [heartRateValue, setHeartRateValue] = useState(75); // Initial
+  const [sbpValue, setSbpValue] = useState(120); // Initial value, you can set it to any value you prefer
+  const [dbpValue, setDbpValue] = useState(80); // Initial value, you can set it to any value you prefer
+  const [bloodGlucoseValue, setBloodGlucoseValue] = useState(120); // Initial value, you can set it to any value you prefer
+  const [hemoglobinValue, setHemoglobinValue] = useState(12); // Initial value, you can set it to any value you prefer
+  const [bnpValue, setBnpValue] = useState(100); // Initial value, you can set it to any value you prefer
 
 
   const handleCalculate = async () => {
@@ -196,65 +202,120 @@ function PatientHistory(props) {
           </TableContainer>
 
           <div style={sliderContainerStyle}>
-            <Typography id="paralysis-slider-label" style={{ color: 'black' }}>
-              History of Paralysis
+            <Typography id="creatinine-slider-label" style={{ color: 'black' }}>
+              Creatinine: {creatinineValue}
             </Typography>
             <Slider
-              id="paralysisSlider"
-              defaultValue={50}
-              aria-labelledby="paralysis-slider-label"
+              id="creatinineSlider"
+              defaultValue={creatinineValue}
+              aria-labelledby="creatinine-slider-label"
               valueLabelDisplay="auto"
-              value={paralysisHistory}
-              onChange={(event, value) => setParalysisHistory(value)}
+              value={creatinineValue}
+              onChange={(event, value) => setCreatinineValue(value)}
               sx={sliderStyles}
+              min={0}
+              max={200}
             />
           </div>
 
           <div style={sliderContainerStyle}>
-            <Typography id="gangrene-slider-label" style={{ color: 'black' }}>
-              History of Gangrene
+            <Typography id="heart-rate-slider-label" style={{ color: 'black' }}>
+              Heart Rate: {heartRateValue}
             </Typography>
             <Slider
-              id="gangreneSlider"
-              defaultValue={50}
-              aria-labelledby="gangrene-slider-label"
+              id="heartRateSlider"
+              defaultValue={heartRateValue}
+              aria-labelledby="heart-rate-slider-label"
               valueLabelDisplay="auto"
-              value={gangreneHistory}
-              onChange={(event, value) => setGangreneHistory(value)}
+              value={heartRateValue}
+              onChange={(event, value) => setHeartRateValue(value)}
               sx={sliderStyles}
+              min={0}
+              max={200}
             />
           </div>
 
           <div style={sliderContainerStyle}>
-            <Typography id="blood-pressure-slider-label" style={{ color: 'black' }}>
-              History of Blood Pressure
+            <Typography id="sbp-slider-label" style={{ color: 'black' }}>
+              SBP: {sbpValue}
             </Typography>
             <Slider
-              id="bloodPressureSlider"
-              defaultValue={50}
-              aria-labelledby="blood-pressure-slider-label"
+              id="sbpSlider"
+              defaultValue={sbpValue}
+              aria-labelledby="sbp-slider-label"
               valueLabelDisplay="auto"
-              value={bloodPressureHistory}
-              onChange={(event, value) => setBloodPressureHistory(value)}
+              value={sbpValue}
+              onChange={(event, value) => setSbpValue(value)}
               sx={sliderStyles}
+              min={0}
+              max={200}
             />
           </div>
 
           <div style={sliderContainerStyle}>
-            <Typography id="breathing-difficulty-slider-label" style={{ color: 'black' }}>
-              History of Breathing Difficulty
+            <Typography id="dbp-slider-label" style={{ color: 'black' }}>
+              DBP: {dbpValue}
             </Typography>
             <Slider
-              id="breathingDifficultySlider"
-              defaultValue={50}
-              aria-labelledby="breathing-difficulty-slider-label"
+              id="dbpSlider"
+              defaultValue={dbpValue}
+              aria-labelledby="dbp-slider-label"
               valueLabelDisplay="auto"
-              value={breathingDifficultyHistory}
-              onChange={(event, value) => setBreathingDifficultyHistory(value)}
+              value={dbpValue}
+              onChange={(event, value) => setDbpValue(value)}
               sx={sliderStyles}
+              min={0}
+              max={200}
             />
           </div>
-
+          <div style={sliderContainerStyle}>
+            <Typography id="blood-glucose-slider-label" style={{ color: 'black' }}>
+              Blood Glucose: {bloodGlucoseValue}
+            </Typography>
+            <Slider
+              id="bloodGlucoseSlider"
+              defaultValue={bloodGlucoseValue}
+              aria-labelledby="blood-glucose-slider-label"
+              valueLabelDisplay="auto"
+              value={bloodGlucoseValue}
+              onChange={(event, value) => setBloodGlucoseValue(value)}
+              sx={sliderStyles}
+              min={0}
+              max={200}
+            />
+          </div>
+          <div style={sliderContainerStyle}>
+            <Typography id="hemoglobin-slider-label" style={{ color: 'black' }}>
+              Hemoglobin: {hemoglobinValue}
+            </Typography>
+            <Slider
+              id="hemoglobinSlider"
+              defaultValue={hemoglobinValue}
+              aria-labelledby="hemoglobin-slider-label"
+              valueLabelDisplay="auto"
+              value={hemoglobinValue}
+              onChange={(event, value) => setHemoglobinValue(value)}
+              sx={sliderStyles}
+              min={0}
+              max={200}
+            />
+          </div>
+          <div style={sliderContainerStyle}>
+            <Typography id="bnp-slider-label" style={{ color: 'black' }}>
+              BNP: {bnpValue}
+            </Typography>
+            <Slider
+              id="bnpSlider"
+              defaultValue={bnpValue}
+              aria-labelledby="bnp-slider-label"
+              valueLabelDisplay="auto"
+              value={bnpValue}
+              onChange={(event, value) => setBnpValue(value)}
+              sx={sliderStyles}
+              min={0}
+              max={200}
+            />
+          </div>
           <Button
             variant="contained"
             fullWidth

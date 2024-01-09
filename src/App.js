@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -7,6 +7,7 @@ import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 import './App.css';
 import PatientDetails from './patientDetails';
+import SplashScreen from './SplashScreen';
 
 function App() {
   const labelStyle = {
@@ -23,6 +24,23 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [focusedInput, setFocusedInput] = useState(null);
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    // Simulate an asynchronous task (e.g., fetching initial data)
+    const fetchData = async () => {
+      // Delay for demonstration purposes
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setShowSplash(false);
+    };
+
+    fetchData();
+  }, []);
+
+  if (showSplash) {
+    return <SplashScreen />;
+  }
+
 
   const handleInputFocus = (input) => {
     setFocusedInput(input);

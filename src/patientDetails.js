@@ -169,7 +169,7 @@ function PatientDetails(props) {
 
   // Render PatientHistory if patientId is available
   if (patientId) {
-    return <PatientHistory patientId={patientId} patientName={name} />;
+    return <PatientHistory patientId={patientId} patientNamePass ={name} patientAge ={age} patientWeight = {weight} patientHeight = {height} patientGender = {gender} />;
   }
 
   return (
@@ -246,7 +246,6 @@ function PatientDetails(props) {
             >
               <MenuItem value="Male">Male</MenuItem>
               <MenuItem value="Female">Female</MenuItem>
-              <MenuItem value="Others">Others</MenuItem>
             </Select>
           </FormControl>
           <FormControl fullWidth variant="outlined" margin="normal">

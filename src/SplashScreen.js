@@ -12,7 +12,7 @@ const SplashScreen = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
     <Typography variant="h4" gutterBottom style={headingStyle}>
-        Heart Health Monitoring System
+        Health Monitoring System
     </Typography>
       <Lottie
         animationData={animationData}

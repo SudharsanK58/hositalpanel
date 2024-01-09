@@ -66,7 +66,7 @@ return (
   <div className="centered-container" style={{ backgroundColor, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', overflow: 'hidden' }}>
     <header className="App-header">
       <Typography variant="h4" gutterBottom style={headingStyle}>
-        Heart Health
+        Health Result
       </Typography>
       <div className="form-container" style={{ textAlign: 'center', width: '100%' }}>
 

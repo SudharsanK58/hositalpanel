@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import PatientHistory from './PatientHistory';
 import PatientDetails from './patientDetails';
+import ManagePatient from './managePatient';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

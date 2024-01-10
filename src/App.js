@@ -8,6 +8,7 @@ import 'react-simple-keyboard/build/css/index.css';
 import './App.css';
 import PatientDetails from './patientDetails';
 import SplashScreen from './SplashScreen';
+import ManagePatient from './managePatient';
 
 function App() {
   const labelStyle = {
@@ -30,7 +31,7 @@ function App() {
     // Simulate an asynchronous task (e.g., fetching initial data)
     const fetchData = async () => {
       // Delay for demonstration purposes
-      await new Promise(resolve => setTimeout(resolve, 20000));
+      await new Promise(resolve => setTimeout(resolve, 5000));
       setShowSplash(false);
     };
 
@@ -109,7 +110,7 @@ function App() {
 
   // Render AnotherPage component when logged in
   if (loggedIn) {
-    return <PatientDetails />;
+    return <ManagePatient />;
   }
 
   return (

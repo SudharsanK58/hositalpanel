@@ -9,6 +9,10 @@ import PatientDetails from './patientDetails';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
+import InputLabel from '@mui/material/InputLabel';
+import Keyboard from 'react-simple-keyboard';
+import 'react-simple-keyboard/build/css/index.css';
+import TextField from '@mui/material/TextField';
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material';
 
 
@@ -39,8 +43,24 @@ function PatientHistory(props) {
   const [sbpValue, setSbpValue] = useState(120); // Initial value, you can set it to any value you prefer
   const [dbpValue, setDbpValue] = useState(80); // Initial value, you can set it to any value you prefer
   const [bloodGlucoseValue, setBloodGlucoseValue] = useState(120); // Initial value, you can set it to any value you prefer
-  const [hemoglobinValue, setHemoglobinValue] = useState(12); // Initial value, you can set it to any value you prefer
+  const [hemoglobinValue, setHemoglobinValue] = useState(''); // Initial value, you can set it to any value you prefer
   const [bnpValue, setBnpValue] = useState(100); // Initial value, you can set it to any value you prefer
+  const [focusedInput, setFocusedInput] = useState(null);
+
+  const handleInputFocus = (inputName) => {
+    setFocusedInput(inputName);
+  };
+
+  const handleInputBlur = () => {
+    setFocusedInput(null);
+  };
+
+  const handleInputChange = (inputName, input) => {
+    if (inputName === 'hemoglobinValue') {
+      // Handle the input value for hemoglobinValue
+      setHemoglobinValue(Number(input));
+    }
+  };
 
 
   const handleCalculate = async () => {
@@ -311,20 +331,32 @@ function PatientHistory(props) {
             />
           </div>
           <div style={sliderContainerStyle}>
-            <Typography id="hemoglobin-slider-label" style={{ color: 'black' }}>
-              Hemoglobin: {hemoglobinValue}
-            </Typography>
-            <Slider
-              id="hemoglobinSlider"
-              defaultValue={hemoglobinValue}
-              aria-labelledby="hemoglobin-slider-label"
-              valueLabelDisplay="auto"
+            <TextField
+              id="hemoglobinInput"
+              variant="outlined"
+              label = "Hemoglobin"
+              fullWidth 
+              margin="normal"
               value={hemoglobinValue}
-              onChange={(event, value) => setHemoglobinValue(value)}
-              sx={sliderStyles}
-              min={0}
-              max={200}
+              onFocus={() => handleInputFocus('hemoglobinValue')}
+              onBlur={handleInputBlur}
+              onChange={(e) => setHemoglobinValue(e.target.value)}
             />
+            {focusedInput === 'hemoglobinValue' && (
+              <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
+                <Keyboard
+                  onChange={(input, e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleInputChange('hemoglobinValue', input);
+                  }}
+                  inputName="hemoglobinValue"
+                  layout={{
+                    default: ['1 2 3', '4 5 6', '7 8 9', '0 {bksp}'],
+                  }}
+                />
+              </div>
+            )}
           </div>
           <div style={sliderContainerStyle}>
             <Typography id="bnp-slider-label" style={{ color: 'black' }}>

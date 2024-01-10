@@ -113,7 +113,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" >
       <header className="App-header">
         <Typography variant="h4" gutterBottom style={headingStyle}>
           Health Monitoring System
@@ -149,7 +149,7 @@ function App() {
             onChange={(e) => setPassword(e.target.value)}
           />
           {focusedInput && (
-            <div style={{ position: 'relative', marginTop: '8px' }}>
+            <div style={{ position: 'relative', marginTop: '8px', width: '450px'}}>
             <Keyboard
               onChange={(input, e) => {
                 e.preventDefault(); // Prevent default behavior

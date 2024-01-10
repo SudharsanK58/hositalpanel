@@ -38,13 +38,13 @@ function PatientHistory(props) {
   const [priorSymptomaticHF, setPriorSymptomaticHF] = useState(0);
   const [hypertension, setHypertension] = useState(0);
   const [diabetesMellitus, setDiabetesMellitus] = useState(0);
-  const [creatinineValue, setCreatinineValue] = useState(100); // Initial value, you can set it to any value you prefer
-  const [heartRateValue, setHeartRateValue] = useState(75); // Initial
-  const [sbpValue, setSbpValue] = useState(120); // Initial value, you can set it to any value you prefer
-  const [dbpValue, setDbpValue] = useState(80); // Initial value, you can set it to any value you prefer
-  const [bloodGlucoseValue, setBloodGlucoseValue] = useState(120); // Initial value, you can set it to any value you prefer
+  const [creatinineValue, setCreatinineValue] = useState(''); // Initial value, you can set it to any value you prefer
+  const [heartRateValue, setHeartRateValue] = useState(''); // Initial
+  const [sbpValue, setSbpValue] = useState(''); // Initial value, you can set it to any value you prefer
+  const [dbpValue, setDbpValue] = useState(''); // Initial value, you can set it to any value you prefer
+  const [bloodGlucoseValue, setBloodGlucoseValue] = useState(''); // Initial value, you can set it to any value you prefer
   const [hemoglobinValue, setHemoglobinValue] = useState(''); // Initial value, you can set it to any value you prefer
-  const [bnpValue, setBnpValue] = useState(100); // Initial value, you can set it to any value you prefer
+  const [bnpValue, setBnpValue] = useState(''); // Initial value, you can set it to any value you prefer
   const [focusedInput, setFocusedInput] = useState(null);
 
   const handleInputFocus = (inputName) => {
@@ -59,13 +59,47 @@ function PatientHistory(props) {
     if (inputName === 'hemoglobinValue') {
       // Handle the input value for hemoglobinValue
       setHemoglobinValue(Number(input));
-    }
+    } else if (inputName === 'creatinineValue') {
+      // Handle the input value for creatinineValue
+      setCreatinineValue(Number(input));
+    } else if (inputName === 'heartRateValue') {
+      // Handle the input value for heartRateValue
+      setHeartRateValue(Number(input));
+    } else if (inputName === 'sbpValue') {
+      // Handle the input value for sbpValue
+      setSbpValue(Number(input));
+    } else if (inputName === 'dbpValue') {
+      // Handle the input value for dbpValue
+      setDbpValue(Number(input));
+    } else if (inputName === 'bloodGlucoseValue') {
+      // Handle the input value for bloodGlucoseValue
+      setBloodGlucoseValue(Number(input));
+    } else if (inputName === 'bnpValue') {
+      // Handle the input value for bnpValue
+      setBnpValue(Number(input));
+    }   
+    // Add similar conditions for other input names if needed
   };
-
+  
+  
 
   const handleCalculate = async () => {
     try {
       setLoading(true);
+      // Check for empty values before making the API call
+      if (
+        hemoglobinValue === '' ||
+        creatinineValue === '' ||
+        heartRateValue === '' ||
+        sbpValue === '' ||
+        dbpValue === '' ||
+        bloodGlucoseValue === '' ||
+        bnpValue === ''
+      ) {
+        // Handle the case where any of the required fields are empty
+        console.error('Error: Some fields are empty');
+        return;
+      }
   
       const requestBody = {
         "PatientId": patientId, // Assuming patientId is already defined in your component
@@ -248,88 +282,149 @@ function PatientHistory(props) {
           </TableContainer>
 
           <div style={sliderContainerStyle}>
-            <Typography id="creatinine-slider-label" style={{ color: 'black' }}>
-              Creatinine: {creatinineValue}
-            </Typography>
-            <Slider
-              id="creatinineSlider"
-              defaultValue={creatinineValue}
-              aria-labelledby="creatinine-slider-label"
-              valueLabelDisplay="auto"
+            <TextField
+              id="creatinineInput"
+              variant="outlined"
+              label="Creatinine"
+              fullWidth
+              margin="normal"
               value={creatinineValue}
-              onChange={(event, value) => setCreatinineValue(value)}
-              sx={sliderStyles}
-              min={0}
-              max={200}
+              onFocus={() => handleInputFocus('creatinineValue')}
+              onBlur={handleInputBlur}
+              onChange={(e) => setCreatinineValue(e.target.value)}
             />
+            {focusedInput === 'creatinineValue' && (
+              <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
+                <Keyboard
+                  onChange={(input, e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleInputChange('creatinineValue', input);
+                  }}
+                  inputName="creatinineValue"
+                  layout={{
+                    default: ['1 2 3', '4 5 6', '7 8 9', '0 {bksp}'],
+                  }}
+                />
+              </div>
+            )}
           </div>
 
+
           <div style={sliderContainerStyle}>
-            <Typography id="heart-rate-slider-label" style={{ color: 'black' }}>
-              Heart Rate: {heartRateValue}
-            </Typography>
-            <Slider
-              id="heartRateSlider"
-              defaultValue={heartRateValue}
-              aria-labelledby="heart-rate-slider-label"
-              valueLabelDisplay="auto"
+            <TextField
+              id="heartRateInput"
+              variant="outlined"
+              label="Heart Rate"
+              fullWidth
+              margin="normal"
               value={heartRateValue}
-              onChange={(event, value) => setHeartRateValue(value)}
-              sx={sliderStyles}
-              min={0}
-              max={200}
+              onFocus={() => handleInputFocus('heartRateValue')}
+              onBlur={handleInputBlur}
+              onChange={(e) => setHeartRateValue(e.target.value)}
             />
+            {focusedInput === 'heartRateValue' && (
+              <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
+                <Keyboard
+                  onChange={(input, e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleInputChange('heartRateValue', input);
+                  }}
+                  inputName="heartRateValue"
+                  layout={{
+                    default: ['1 2 3', '4 5 6', '7 8 9', '0 {bksp}'],
+                  }}
+                />
+              </div>
+            )}
           </div>
-
           <div style={sliderContainerStyle}>
-            <Typography id="sbp-slider-label" style={{ color: 'black' }}>
-              SBP: {sbpValue}
-            </Typography>
-            <Slider
-              id="sbpSlider"
-              defaultValue={sbpValue}
-              aria-labelledby="sbp-slider-label"
-              valueLabelDisplay="auto"
+            <TextField
+              id="sbpInput"
+              variant="outlined"
+              label="SBP"
+              fullWidth
+              margin="normal"
               value={sbpValue}
-              onChange={(event, value) => setSbpValue(value)}
-              sx={sliderStyles}
-              min={0}
-              max={200}
+              onFocus={() => handleInputFocus('sbpValue')}
+              onBlur={handleInputBlur}
+              onChange={(e) => setSbpValue(e.target.value)}
             />
-          </div>
+            {focusedInput === 'sbpValue' && (
+              <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
+                <Keyboard
+                  onChange={(input, e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleInputChange('sbpValue', input);
+                  }}
+                  inputName="sbpValue"
+                  layout={{
+                    default: ['1 2 3', '4 5 6', '7 8 9', '0 {bksp}'],
+                  }}
+                />
+              </div>
+            )}
+            </div>
+            <div style={sliderContainerStyle}>
+              <TextField
+                id="dbpInput"
+                variant="outlined"
+                label="DBP"
+                fullWidth
+                margin="normal"
+                value={dbpValue}
+                onFocus={() => handleInputFocus('dbpValue')}
+                onBlur={handleInputBlur}
+                onChange={(e) => setDbpValue(e.target.value)}
+              />
+              {focusedInput === 'dbpValue' && (
+                <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
+                  <Keyboard
+                    onChange={(input, e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleInputChange('dbpValue', input);
+                    }}
+                    inputName="dbpValue"
+                    layout={{
+                      default: ['1 2 3', '4 5 6', '7 8 9', '0 {bksp}'],
+                    }}
+                  />
+                </div>
+              )}
+            </div>
 
-          <div style={sliderContainerStyle}>
-            <Typography id="dbp-slider-label" style={{ color: 'black' }}>
-              DBP: {dbpValue}
-            </Typography>
-            <Slider
-              id="dbpSlider"
-              defaultValue={dbpValue}
-              aria-labelledby="dbp-slider-label"
-              valueLabelDisplay="auto"
-              value={dbpValue}
-              onChange={(event, value) => setDbpValue(value)}
-              sx={sliderStyles}
-              min={0}
-              max={200}
-            />
-          </div>
-          <div style={sliderContainerStyle}>
-            <Typography id="blood-glucose-slider-label" style={{ color: 'black' }}>
-              Blood Glucose: {bloodGlucoseValue}
-            </Typography>
-            <Slider
-              id="bloodGlucoseSlider"
-              defaultValue={bloodGlucoseValue}
-              aria-labelledby="blood-glucose-slider-label"
-              valueLabelDisplay="auto"
-              value={bloodGlucoseValue}
-              onChange={(event, value) => setBloodGlucoseValue(value)}
-              sx={sliderStyles}
-              min={0}
-              max={200}
-            />
-          </div>
+            <div style={sliderContainerStyle}>
+              <TextField
+                id="bloodGlucoseInput"
+                variant="outlined"
+                label="Blood Glucose"
+                fullWidth
+                margin="normal"
+                value={bloodGlucoseValue}
+                onFocus={() => handleInputFocus('bloodGlucoseValue')}
+                onBlur={handleInputBlur}
+                onChange={(e) => setBloodGlucoseValue(e.target.value)}
+              />
+              {focusedInput === 'bloodGlucoseValue' && (
+                <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
+                  <Keyboard
+                    onChange={(input, e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleInputChange('bloodGlucoseValue', input);
+                    }}
+                    inputName="bloodGlucoseValue"
+                    layout={{
+                      default: ['1 2 3', '4 5 6', '7 8 9', '0 {bksp}'],
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+
           <div style={sliderContainerStyle}>
             <TextField
               id="hemoglobinInput"
@@ -359,21 +454,34 @@ function PatientHistory(props) {
             )}
           </div>
           <div style={sliderContainerStyle}>
-            <Typography id="bnp-slider-label" style={{ color: 'black' }}>
-              BNP: {bnpValue}
-            </Typography>
-            <Slider
-              id="bnpSlider"
-              defaultValue={bnpValue}
-              aria-labelledby="bnp-slider-label"
-              valueLabelDisplay="auto"
+            <TextField
+              id="bnpInput"
+              variant="outlined"
+              label="BNP"
+              fullWidth
+              margin="normal"
               value={bnpValue}
-              onChange={(event, value) => setBnpValue(value)}
-              sx={sliderStyles}
-              min={0}
-              max={200}
+              onFocus={() => handleInputFocus('bnpValue')}
+              onBlur={handleInputBlur}
+              onChange={(e) => setBnpValue(e.target.value)}
             />
+            {focusedInput === 'bnpValue' && (
+              <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
+                <Keyboard
+                  onChange={(input, e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleInputChange('bnpValue', input);
+                  }}
+                  inputName="bnpValue"
+                  layout={{
+                    default: ['1 2 3', '4 5 6', '7 8 9', '0 {bksp}'],
+                  }}
+                />
+              </div>
+            )}
           </div>
+
           <Button
             variant="contained"
             fullWidth

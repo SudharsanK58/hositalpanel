@@ -6,11 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import PatientHistory from './PatientHistory';
 import PatientDetails from './patientDetails';
 import ManagePatient from './managePatient';
+import PatientTable from './patientTable'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <PatientTable />
   </React.StrictMode>
 );
 

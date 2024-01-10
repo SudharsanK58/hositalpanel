@@ -30,7 +30,7 @@ function App() {
     // Simulate an asynchronous task (e.g., fetching initial data)
     const fetchData = async () => {
       // Delay for demonstration purposes
-      await new Promise(resolve => setTimeout(resolve, 5000));
+      await new Promise(resolve => setTimeout(resolve, 3000));
       setShowSplash(false);
     };
 

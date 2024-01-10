@@ -27,35 +27,11 @@ function HeartResult(props) {
   };
 
   const headingStyle = {
-    fontSize: '3em',
+    fontSize: '2em',
     fontWeight: 'bold',
     color: 'blue',
     textAlign: 'center',
   };
-
-  const heartHealthStyle = {
-    fontSize: '8em',
-    fontWeight: 'bold',
-    color: textColor,
-  };
-
-  // Use useEffect to update the background color based on heartHealth changes
-  useEffect(() => {
-    if (heartHealth >= 0 && heartHealth <= 700) {
-      setBackgroundColor('green');
-      setTextColor('white');
-    } else if (heartHealth >= 701 && heartHealth <= 1400) {
-      setBackgroundColor('yellow');
-      setTextColor('blue');
-    } else if (heartHealth >= 1401 && heartHealth <= 2100) {
-      setBackgroundColor('red');
-      setTextColor('white');
-    } else {
-      setBackgroundColor('white'); // Default background color
-      setTextColor('black');
-    }
-  }, [heartHealth]);
-
   if (showPatientDetails) {
     // If showPatientDetails is true, render the PatientDetails component
     return <PatientDetails />;
@@ -90,14 +66,35 @@ return (
                 <TableCell variant="head">Name :</TableCell>
                 <TableCell align="left">{patientName}</TableCell>
               </TableRow>
-              <TableRow>
+              <TableRow
+                sx={
+                  withLab < -19
+                    ? { backgroundColor: 'red', '& *': { color: 'white' } }
+                    : withLab >= -19 && withLab <= 21
+                    ? { backgroundColor: 'yellow' }
+                    : withLab > 21
+                    ? { backgroundColor: 'green', '& *': { color: 'white' } }
+                    : {}
+                }
+              >
                 <TableCell variant="head">WithLab :</TableCell>
                 <TableCell align="left">{withLab.toFixed(4)}</TableCell>
               </TableRow>
-              <TableRow>
+              <TableRow
+                sx={
+                  withoutLab < 150
+                    ? { backgroundColor: 'green', '& *': { color: 'white' } }
+                    : withoutLab >= 150 && withoutLab <= 205
+                    ? { backgroundColor: 'yellow' }
+                    : withoutLab > 205
+                    ? { backgroundColor: 'red', '& *': { color: 'white' } }
+                    : {}
+                }
+              >
                 <TableCell variant="head">WithoutLab :</TableCell>
                 <TableCell align="left">{withoutLab.toFixed(4)}</TableCell>
               </TableRow>
+
               <TableRow>
                 <TableCell variant="head">BMI :</TableCell>
                 <TableCell align="left">{bmi.toFixed(4)}</TableCell>

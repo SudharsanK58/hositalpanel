@@ -16,6 +16,7 @@ import TextField from '@mui/material/TextField';
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material';
 
 
+
 function PatientHistory(props) {
   const { patientId, patientNamePass, patientAge, patientWeight, patientHeight, patientGender} = props;
  
@@ -46,6 +47,7 @@ function PatientHistory(props) {
   const [hemoglobinValue, setHemoglobinValue] = useState(''); // Initial value, you can set it to any value you prefer
   const [bnpValue, setBnpValue] = useState(''); // Initial value, you can set it to any value you prefer
   const [focusedInput, setFocusedInput] = useState(null);
+  const [error, setError] = useState('');
 
   const handleInputFocus = (inputName) => {
     setFocusedInput(inputName);
@@ -98,6 +100,7 @@ function PatientHistory(props) {
       ) {
         // Handle the case where any of the required fields are empty
         console.error('Error: Some fields are empty');
+        setError('Some fields are empty. Please fill out all required fields.');
         return;
       }
   
@@ -157,7 +160,7 @@ function PatientHistory(props) {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    marginBottom: '26px', // Adjust the marginBottom as needed
+    marginBottom: '20px', // Adjust the marginBottom as needed
   };
 
   const sliderStyles = {
@@ -481,7 +484,7 @@ function PatientHistory(props) {
               </div>
             )}
           </div>
-
+          {error && <Typography variant="body2" color="error">{error}</Typography>}
           <Button
             variant="contained"
             fullWidth

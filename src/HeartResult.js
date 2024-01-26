@@ -67,13 +67,13 @@ return (
                 <TableCell align="left">{patientName}</TableCell>
               </TableRow>
               <TableRow
-                sx={
-                  withLab < -19
-                    ? { backgroundColor: 'red', '& *': { color: 'white' } }
-                    : withLab >= -19 && withLab <= 21
-                    ? { backgroundColor: 'yellow' }
-                    : withLab > 21
+                sx = {
+                  withLab < 150
                     ? { backgroundColor: 'green', '& *': { color: 'white' } }
+                    : withLab >= 150 && withLab <= 260
+                    ? { backgroundColor: 'yellow' }
+                    : withLab > 260
+                    ? { backgroundColor: 'red', '& *': { color: 'white' } }
                     : {}
                 }
               >

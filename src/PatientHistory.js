@@ -14,6 +14,7 @@ import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 import TextField from '@mui/material/TextField';
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material';
+import InputAdornment from '@mui/material/InputAdornment';
 
 
 
@@ -315,17 +316,24 @@ function PatientHistory(props) {
 
 
           <div style={sliderContainerStyle}>
-            <TextField
-              id="heartRateInput"
-              variant="outlined"
-              label="Heart Rate"
-              fullWidth
-              margin="normal"
-              value={heartRateValue}
-              onFocus={() => handleInputFocus('heartRateValue')}
-              onBlur={handleInputBlur}
-              onChange={(e) => setHeartRateValue(e.target.value)}
-            />
+          <TextField
+            id="heartRateInput"
+            variant="outlined"
+            label="Heart Rate"
+            fullWidth
+            margin="normal"
+            value={heartRateValue}
+            onFocus={() => handleInputFocus('heartRateValue')}
+            onBlur={handleInputBlur}
+            onChange={(e) => setHeartRateValue(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  Pulse per minute
+                </InputAdornment>
+              ),
+            }}
+          />
             {focusedInput === 'heartRateValue' && (
               <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
                 <Keyboard
@@ -381,6 +389,13 @@ function PatientHistory(props) {
                 onFocus={() => handleInputFocus('dbpValue')}
                 onBlur={handleInputBlur}
                 onChange={(e) => setDbpValue(e.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      mm Hg
+                    </InputAdornment>
+                  ),
+                }}
               />
               {focusedInput === 'dbpValue' && (
                 <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
@@ -410,6 +425,13 @@ function PatientHistory(props) {
                 onFocus={() => handleInputFocus('bloodGlucoseValue')}
                 onBlur={handleInputBlur}
                 onChange={(e) => setBloodGlucoseValue(e.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      mg/dl
+                    </InputAdornment>
+                  ),
+                }}
               />
               {focusedInput === 'bloodGlucoseValue' && (
                 <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
@@ -439,6 +461,13 @@ function PatientHistory(props) {
               onFocus={() => handleInputFocus('hemoglobinValue')}
               onBlur={handleInputBlur}
               onChange={(e) => setHemoglobinValue(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    g/dl
+                  </InputAdornment>
+                ),
+              }}
             />
             {focusedInput === 'hemoglobinValue' && (
               <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
@@ -467,6 +496,13 @@ function PatientHistory(props) {
               onFocus={() => handleInputFocus('bnpValue')}
               onBlur={handleInputBlur}
               onChange={(e) => setBnpValue(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    pg/dl
+                  </InputAdornment>
+                ),
+              }}
             />
             {focusedInput === 'bnpValue' && (
               <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>

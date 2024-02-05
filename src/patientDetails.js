@@ -123,11 +123,18 @@ function PatientDetails(props) {
   };
 
   const handleContinue = () => {
-    // Validate if any field is empty
-    if (!name || !age || !gender || !city || !height || !weight || !phoneNumber) {
+    
+    if (!name || !age || !gender || !city || !height || !weight) {
       setError('All fields must be filled out.');
       return;
     }
+
+    // Validate if phone number is not exactly 10 digits
+    if (!phoneNumber || phoneNumber.length !== 10) {
+      setError('Phone number should be exactly 10 digits.');
+      return;
+    }
+
 
     // Set loading to true to show CircularProgress
     setLoading(true);
@@ -249,24 +256,33 @@ function PatientDetails(props) {
             </Select>
           </FormControl>
           <FormControl fullWidth variant="outlined" margin="normal">
-            <InputLabel id="city-label" style={labelStyle2}>
-              City
-            </InputLabel>
-            <Select
-              labelId="city-label"
-              id="city"
-              label="City"
-              value={city}
-              onFocus={() => handleInputFocus('city')}
-              onBlur={handleInputBlur}
-              onChange={(e) => setCity(e.target.value)}
-            >
-              {tamilNaduCities.map((cityName) => (
-                <MenuItem key={cityName} value={cityName}>
-                  {cityName}
-                </MenuItem>
-              ))}
-            </Select>
+          <TextField
+            id="city"
+            label="City"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={city}
+            onFocus={() => handleInputFocus('city')}
+            onBlur={handleInputBlur}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          {focusedInput === 'city' && (
+            <div style={{ position: 'relative', marginTop: '8px' }}>
+              <Keyboard
+                onChange={(input, e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleInputChange('city', input);
+                }}
+                inputName="city"
+                layout={{
+                  default: ['q w e r t y u i o p', 'a s d f g h j k l', 'z x c v b n m', '{bksp}'],
+                }}
+              />
+            </div>
+          )}
+
           </FormControl>
           <TextField
             id="height"

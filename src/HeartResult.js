@@ -14,8 +14,13 @@ import PatientDetails from './patientDetails';
 function HeartResult(props) {
   const { heartHealth, patientId, patientName, withLab, withoutLab, bmi } = props;
   const [showPatientDetails, setShowPatientDetails] = useState(false);
+  const [addNewPatient, setaddNewPatient] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState('');
   const [textColor, setTextColor] = useState('');
+
+  const handleNewPatient = () => {
+    setaddNewPatient(true);
+  };
 
   const handleBackButtonClick = () => {
     setShowPatientDetails(true);
@@ -34,7 +39,11 @@ function HeartResult(props) {
   };
   if (showPatientDetails) {
     // If showPatientDetails is true, render the PatientDetails component
-    return <PatientDetails />;
+    return <PatientDetails newPatient={true} patientId={patientId} />;
+  }
+  if (addNewPatient) {
+    // If showPatientDetails is true, render the PatientDetails component
+    return <PatientDetails newPatient={false} patientId={1001} />;
   }
 
 // Updated return statement with the centering
@@ -106,9 +115,17 @@ return (
         <Button
           variant="contained"
           style={{ marginTop: '16px', marginRight: '30px' }}
+          onClick={handleNewPatient}
+        >
+          Add new
+        </Button>
+
+        <Button
+          variant="contained"
+          style={{ marginTop: '16px', marginRight: '30px' }}
           onClick={handleBackButtonClick}
         >
-          Back
+          Edit
         </Button>
 
         <Button

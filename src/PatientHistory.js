@@ -1,5 +1,5 @@
 // PatientHistory.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 import Button from '@mui/material/Button';
@@ -19,7 +19,38 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 
 function PatientHistory(props) {
-  const { patientId, patientNamePass, patientAge, patientWeight, patientHeight, patientGender} = props;
+  const { patientId, patientNamePass, patientAge, patientWeight, patientHeight, patientGender, newPatient,} = props;
+  useEffect(() => {
+    const fetchData = async () => {
+      if (newPatient && patientId) {
+        try {
+          const response = await fetch(`http://3.144.9.52:8001/get_patient_by_id/${patientId}`);
+          if (response.ok) {
+            const patientData = await response.json();
+            setObstructiveAirwayDisease(patientData.obstructive_airway_disease);
+            setSmokingTobaccoConsumption(patientData.Smokingtobaccoconsumption);
+            setHistoryOfHeartAttack(patientData.historyofMI);
+            setPriorSymptomaticHF(patientData.PriorsymptomaticHF);
+            setCreatinineValue(patientData.creatinine.toString());
+            setHeartRateValue(patientData.Heartrate.toString());
+            setSbpValue(patientData.SBP.toString());
+            setDbpValue(patientData.DBP.toString());
+            setBloodGlucoseValue(patientData.Bloodglucose.toString());
+            setHemoglobinValue(patientData.Hb.toString());
+            setBnpValue(patientData.BNP.toString());
+            setHypertension(patientData.HTN);
+            setDiabetesMellitus(patientData.DM);
+          } else {
+            console.error('Error:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error:', error.message);
+        }
+      }
+    };
+
+    fetchData();
+  }, [newPatient, patientId]);
  
   const labelStyle = {
     color: 'blue',
@@ -106,25 +137,26 @@ function PatientHistory(props) {
       }
   
       const requestBody = {
-        "PatientId": patientId, // Assuming patientId is already defined in your component
+        "PatientId": patientId,
         "Sex": patientGender === "Male" ? 1 : 0,
         "obstructiveairwaydisease": obstructiveAirwayDisease,
         "Smokingtobaccoconsumption": smokingTobaccoConsumption,
         "historyofMI": historyOfHeartAttack,
         "PriorsymptomaticHF": priorSymptomaticHF,
         "Age": parseInt(patientAge, 10),
-        "creatinine": creatinineValue,
-        "Heartrate": heartRateValue,
+        "creatinine": parseFloat(creatinineValue), // Parse as float
+        "Heartrate": parseInt(heartRateValue, 10), // Parse as integer
         "weight": parseInt(patientWeight, 10),
-        "height_cm": parseInt(patientHeight, 10), // Convert height to integer
-        "SBP": sbpValue,
-        "DBP": dbpValue,
-        "Bloodglucose": bloodGlucoseValue,
-        "Hb": hemoglobinValue,
-        "BNP": bnpValue,
-        "HTN": hypertension,
-        "DM": diabetesMellitus,
+        "height_cm": parseInt(patientHeight, 10),
+        "SBP": parseInt(sbpValue, 10), // Parse as integer
+        "DBP": parseInt(dbpValue, 10), // Parse as integer
+        "Bloodglucose": parseInt(bloodGlucoseValue, 10), // Parse as integer
+        "Hb": parseFloat(hemoglobinValue), // Parse as float
+        "BNP": parseInt(bnpValue, 10), // Parse as integer
+        "HTN": parseInt(hypertension, 10), // Parse as integer
+        "DM": parseInt(diabetesMellitus, 10),
       };
+      
   
       const response = await fetch('http://3.144.9.52:8001/save_disease_history2', {
         method: 'POST',

@@ -25,6 +25,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [focusedInput, setFocusedInput] = useState(null);
   const [showSplash, setShowSplash] = useState(true);
+  const [newPatient, setNewPatient] = useState(false);
 
   useEffect(() => {
     // Simulate an asynchronous task (e.g., fetching initial data)
@@ -109,7 +110,7 @@ function App() {
 
   // Render AnotherPage component when logged in
   if (loggedIn) {
-    return <PatientDetails />;
+    return <PatientDetails newPatient={false} patientId={1001} />;
   }
 
   return (

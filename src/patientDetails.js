@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -12,6 +12,39 @@ import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 
 function PatientDetails(props) {
+
+  useEffect(() => {
+    const fetchPatientInfo = async () => {
+      if (props.newPatient && props.patientId) {
+        try {
+          const apiUrl = `http://3.144.9.52:8001/get_patient_info/${props.patientId}`;
+          const response = await fetch(apiUrl);
+          const responseData = await response.json();
+  
+          if (response.ok) {
+            // Update the state with fetched patient information
+            setName(responseData.Name || '');
+            setAge(responseData.Age || '');
+            setGender(responseData.Gender === 1 ? 'Male' : 'Female'); // Convert gender to string
+            setCity(responseData.City || '');
+            setHeight(responseData.Height || '');
+            setWeight(responseData.Weight || '');
+            setPhoneNumber(responseData.PhoneNumber || '');
+          } else {
+            console.error('Error fetching patient info:', responseData.detail || 'An error occurred.');
+            setError('Error fetching patient information.');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          setError('An unexpected error occurred.');
+        }
+      }
+    };
+  
+    fetchPatientInfo();
+  }, [props.newPatient, props.patientId]);
+  
+
   const labelStyle = {
     color: 'blue',
   };
@@ -123,61 +156,107 @@ function PatientDetails(props) {
   };
 
   const handleContinue = () => {
-    
     if (!name || !age || !gender || !city || !height || !weight) {
       setError('All fields must be filled out.');
       return;
     }
-
+  
     // Validate if phone number is not exactly 10 digits
     if (!phoneNumber || phoneNumber.length !== 10) {
       setError('Phone number should be exactly 10 digits.');
       return;
     }
-
-
+  
     // Set loading to true to show CircularProgress
     setLoading(true);
-
-    // API endpoint
-    const apiUrl = 'http://3.144.9.52:8001/save_patient_details';
-
-    // Payload
-    const payload = {
-      name,
-      age: parseInt(age, 10),
-      gender,
-      city,
-      height: parseInt(height, 10),
-      weight: parseInt(weight, 10),
-      phone_number: phoneNumber,
-    };
-
-    // Make POST request
-    fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Log the patientId in the console
-        console.log('PatientId:', data.PatientId);
-        setPatientId(data.PatientId);
+  
+    if (props.newPatient) {
+      // API endpoint for updating patient information
+      const updateApiUrl = `http://3.144.9.52:8001/update_patient_info/${props.patientId}`;
+  
+      // Payload for updating patient information
+      const updatePayload = {
+        name,
+        age: parseInt(age, 10),
+        gender,
+        city,
+        height: parseInt(height, 10),
+        weight: parseInt(weight, 10),
+        phone_number: phoneNumber,
+      };
+  
+      // Make POST request to update patient information
+      fetch(updateApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatePayload),
       })
-      .catch(error => console.error('Error:', error))
-      .finally(() => {
-        // Reset loading state after the request is completed
-        setLoading(false);
-      });
+        .then(response => response.json())
+        .then(data => {
+          // Log the patientId in the console
+          console.log('PatientId:', data.PatientId);
+          setPatientId(data.PatientId);
+        })
+        .catch(error => console.error('Error:', error))
+        .finally(() => {
+          // Reset loading state after the request is completed
+          setLoading(false);
+        });
+    } else {
+      // API endpoint for saving new patient details
+      const saveApiUrl = 'http://3.144.9.52:8001/save_patient_details';
+  
+      // Payload for saving new patient details
+      const savePayload = {
+        name,
+        age: parseInt(age, 10),
+        gender,
+        city,
+        height: parseInt(height, 10),
+        weight: parseInt(weight, 10),
+        phone_number: phoneNumber,
+      };
+  
+      // Make POST request to save new patient details
+      fetch(saveApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(savePayload),
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Log the patientId in the console
+          console.log('PatientId:', data.PatientId);
+          setPatientId(data.PatientId);
+        })
+        .catch(error => console.error('Error:', error))
+        .finally(() => {
+          // Reset loading state after the request is completed
+          setLoading(false);
+        });
+    }
   };
+  
 
-  // Render PatientHistory if patientId is available
-  if (patientId) {
-    return <PatientHistory patientId={patientId} patientNamePass ={name} patientAge ={age} patientWeight = {weight} patientHeight = {height} patientGender = {gender} />;
-  }
+ // Render PatientHistory if patientId is available
+if (patientId) {
+  return (
+    <PatientHistory
+      patientId={patientId}
+      patientNamePass={name}
+      patientAge={age}
+      patientWeight={weight}
+      patientHeight={height}
+      patientGender={gender}
+      newPatient={props.newPatient} 
+    />
+  );
+}
+
 
   return (
     <div className="centered-container">

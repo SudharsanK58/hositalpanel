@@ -64,7 +64,7 @@ return (
             boxShadow: 'none',
             border: '1px solid black',
             '& td, & th': {
-              fontSize: '1.4em',
+              fontSize: '1.2em',
               fontWeight: 'bold',
             },
           }}
@@ -86,8 +86,8 @@ return (
                     : {}
                 }
               >
-                <TableCell variant="head">WithLab :</TableCell>
-                <TableCell align="left">{withLab.toFixed(4)}</TableCell>
+                <TableCell variant="head">WithLab:</TableCell>
+                <TableCell align="left">{withLab.toFixed(2)}</TableCell>
               </TableRow>
               <TableRow
                 sx={
@@ -100,13 +100,13 @@ return (
                     : {}
                 }
               >
-                <TableCell variant="head">WithoutLab :</TableCell>
-                <TableCell align="left">{withoutLab.toFixed(4)}</TableCell>
+                <TableCell variant="head">WithoutLab:</TableCell>
+                <TableCell align="left">{withoutLab.toFixed(2)}</TableCell>
               </TableRow>
 
               <TableRow>
                 <TableCell variant="head">BMI :</TableCell>
-                <TableCell align="left">{bmi.toFixed(4)}</TableCell>
+                <TableCell align="left">{bmi.toFixed(2)}</TableCell>
               </TableRow>
             </TableBody>
           </Table>

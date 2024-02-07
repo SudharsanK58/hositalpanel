@@ -64,7 +64,7 @@ return (
             boxShadow: 'none',
             border: '1px solid black',
             '& td, & th': {
-              fontSize: '0.9em',
+              fontSize: '1.4em',
               fontWeight: 'bold',
             },
           }}

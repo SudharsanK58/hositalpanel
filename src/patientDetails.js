@@ -10,6 +10,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
+import InputAdornment from '@mui/material/InputAdornment';
 
 function PatientDetails(props) {
 
@@ -365,7 +366,7 @@ if (patientId) {
           </FormControl>
           <TextField
             id="height"
-            label="Height (cm)"
+            label="Height"
             variant="outlined"
             fullWidth
             margin="normal"
@@ -373,6 +374,13 @@ if (patientId) {
             onFocus={() => handleInputFocus('height')}
             onBlur={handleInputBlur}
             onChange={(e) => setHeight(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  cm
+                </InputAdornment>
+              ),
+            }}
           />
           {focusedInput === 'height' && (
             <div style={{ position: 'relative', marginTop: '8px' }}>
@@ -391,7 +399,7 @@ if (patientId) {
           )}
           <TextField
             id="weight"
-            label="Weight (kg)"
+            label="Weight"
             variant="outlined"
             fullWidth
             margin="normal"
@@ -399,6 +407,13 @@ if (patientId) {
             onFocus={() => handleInputFocus('weight')}
             onBlur={handleInputBlur}
             onChange={(e) => setWeight(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  kg
+                </InputAdornment>
+              ),
+            }}
           />
           {focusedInput === 'weight' && (
             <div style={{ position: 'relative', marginTop: '8px' }}>

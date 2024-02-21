@@ -328,6 +328,13 @@ function PatientHistory(props) {
               onFocus={() => handleInputFocus('creatinineValue')}
               onBlur={handleInputBlur}
               onChange={(e) => setCreatinineValue(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    mg/dl
+                  </InputAdornment>
+                ),
+              }}
             />
             {focusedInput === 'creatinineValue' && (
               <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
@@ -393,6 +400,13 @@ function PatientHistory(props) {
               onFocus={() => handleInputFocus('sbpValue')}
               onBlur={handleInputBlur}
               onChange={(e) => setSbpValue(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    mm Hg
+                  </InputAdornment>
+                ),
+              }}
             />
             {focusedInput === 'sbpValue' && (
               <div style={{ position: 'relative', marginTop: '8px', width: '420px' }}>
